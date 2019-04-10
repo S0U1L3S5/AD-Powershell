@@ -2,5 +2,4 @@
 
 This repository includes the following:
 
-  1) Active Directory Powershell Scripts
-  2) Regular Powershell Scripts
+Active Directory Powershell Scripts that were developed for various classroom assigments during an Active Directory Class
