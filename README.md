@@ -1,4 +1,5 @@
-# AD-Powershell
-Create initial ADU&amp;C structure or add to existing structure from CVS file
-ADD/Remove User and Security Groups
-ADD/Remove member from Security Group
+# Powershell
+
+This repository includes the following:
+
+Active Directory Powershell Scripts that were developed for various classroom assigments during an Active Directory Class
