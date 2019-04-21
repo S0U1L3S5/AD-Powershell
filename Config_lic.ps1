@@ -8,7 +8,7 @@
 
 #set variables
 $envName = "LM_LICENSE_KEY"
-$regkey = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
+$regkey = "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment"
 
 #check if env variable exists in regkey
 if ((Get-ItemProperty -Path $regkey) -match $envName)
