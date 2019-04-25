@@ -1,0 +1,12 @@
+#Assignment 9: Configuration via PowerShell
+
+Some applications need to contact a server known as a License Manager to verify licensing, and thus need to know where to point. One way they do that is by using environment variables.
+
+For this assignment, write a PowerShell script that verifies the 'System' environment variable, 'LM_LICENSE_FILE', exists. If it exists, the script should also verify that the variable includes 27000@test.university.com (which represents the port and server the LM points to) as one of the values in the variable. Values (if any are present) are separated by commas "," in this variable. Finally, if the value does not exist, this script should also perform remediation (add the desired value to the variable, without overwriting the existing values).
+
+Tips:
+
+Follow the Code Snippet shared in Teams, should give some idea of how to do this
+Where are System variables stored in Registry? The Code Snippet showed User variables -- you have to figure out where System variables are stored!
+Check for key's existence, and create if not present. On your PC01 system, its not going to be present until you create it and no harm done if you delete it, so a good place to test!
+For additional help: http://woshub.com/how-to-access-and-manage-windows-registry-with-powershell/ (Links to an external site.)Links to an external site.
