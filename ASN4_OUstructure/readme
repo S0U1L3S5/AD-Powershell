@@ -1,0 +1,11 @@
+#Create OU Structure via PowerShell
+
+Create the OU structure in your DC that you designed in Assignment 3.
+
+You can use the script shown in class as a starting point. That script is available within Modules in Canvas, and in the Files in Teams.
+
+Also populate your OU structure with some PCs and Users where appropriate. Populate your OU structure with the Security Groups you plan to use as well (e.g. IT Groups managing the OUs, Helpdesk Group).
+
+You can create each OU/PC/User individually in your script, or feed in via file(s). If feeding in, attach your input file(s) as well.
+
+Submit your PowerShell script, any input file(s) used, and a screenshot showing your full OU structure in AD Users & Computers along with screenshots showing where your Security Groups are stored.
