@@ -1,0 +1,10 @@
+Create 3 PowerShell Scripts. The first 2 are worth 2 points each. The 3rd one is extra credit, worth 1 point.
+
+Script 1: Add/Remove Users
+Fields: Username, FirstName, LastName, Description, OUPath, Password, Action (Add | Remove)
+
+Script 2: Create Security Groups
+Fields: Name, Description, OUPath, Scope (DomainLocal | Global | Universal), Category (Distribution | Security)
+
+Script 3: Modify Security Group Membership
+Fields: GroupName, Username, Action (Add | Remove)
