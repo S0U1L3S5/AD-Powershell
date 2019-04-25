@@ -1,0 +1,15 @@
+#Lab 9: Package an Application for Silent Deployment
+
+Pick ONE (1) application (See Below for Note on Extra Credit) from this list and create a silent uninstaller for it via PowerShell:
+
+3D Slicer (https://download.slicer.org/ (Links to an external site.)Links to an external site.)
+LEGO Mindstorms EV3 Programming Software (https://www.lego.com/en-us/mindstorms/downloads (Links to an external site.)Links to an external site.)
+Android Studio (https://developer.android.com/studio/ (Links to an external site.)Links to an external site.)
+You can pick any of these applications you want. Each is an EXE file. What you want to turn in is a PowerShell script file that calls the EXE file with the appropriate parameters that would make the installation take place without asking the user any questions (Administrative confirmation prompts from Windows are expected and fine). Progress bars are preferred where possible, but if not possible based on the installer, omitting them is fine.
+
+Once you have created the silent installer, place the EXE and your script in a folder on your Domain's IT Share, and perform an installation from there to your PC01 system.
+
+Deliverables:
+
+PowerShell script file used to deploy the software as non-interactive 'silent' install
+Writeup identifying which application you picked, how you figured out how to make the installer 'silent', and how to used your script from your share to install on PC01 (with screenshots showing your results).
