@@ -1,0 +1,7 @@
+Create a Script:
+
+Gather list of all Computers in Domain
+Include Computer Name, Status (Active/Inactive), Create Date, Modify Date, Distinguished Name
+Export to CSV File
+Make Excel file more useful
+Be Creative! Add OU field, add PivotTable or PivotChart w/ Slicers, etc...
