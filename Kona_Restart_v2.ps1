@@ -1,5 +1,5 @@
 <###########################################
-    Created by: Austin Gutierrez (AUSTINGU)
+    Created by: Austin Gutierrez
     --------------------------------------
     STOP AND RESTART KONA SERVICES
 ###########################################>
@@ -23,34 +23,31 @@ function ServiceFunction () {
     # Start/Stop a service
     param (
         [parameter(Mandatory=$true)]
-        [array]$action,
+        [String]$action,
         [string]$serviceName
     )
-
     if($action -eq 'Start') {
         if ((Get-Service -Name $serviceName).Status -ne 'Running') {
             Write-Host "Starting service ---> $serviceName"
             Get-Service -Name $serviceName | Start-Service -ErrorAction SilentlyContinue
-            $serviceName.WaitForStatus('Running')
+            (Get-Service -Name $serviceName).WaitForStatus('Running')
             GetServiceStatus($serviceName)
         }
         else {
             Write-Host "Service Named: -- $serviceName -- is already Running `n"
         }
     }
-
     elseif ($action -eq 'Stop') {
-        if ((Get-Service -Name $serviceName).Status -eq 'Running') {
+        if ((Get-Service -Name $serviceName).Status -ne 'Stopped') {
             Write-Host "Stopping service ---> $serviceName"
             Get-Service -Name $serviceName | Stop-Service -ErrorAction SilentlyContinue
-            $serviceName.WaitForStatus('Stopped')
+            (Get-Service -Name $serviceName).WaitForStatus('Stopped')
             GetServiceStatus($serviceName)
         }
         else {
             Write-Host "Service Named: -- $serviceName -- is not Running `n"
         }
     }
-
     else {
         Write-Host "Invalid Argument passed -- $action `t $serviceName"
     }
@@ -58,9 +55,11 @@ function ServiceFunction () {
 
 function ContinueScript () {
     # Flow Control from User
-    [Parameter(Mandatory=$true)]
-    [string]$choice
-    if ($choice -contains 'Y') {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$choice
+    )
+        if ($choice -contains 'Y') {
         Write-Host "`nProceeding...`n"
     }
     else {
@@ -70,50 +69,44 @@ function ContinueScript () {
 }
 
 <###########################################
-    BELOW USED TO TEST THE FUNCTIONS
-# $testName = "GoogleChromeElevationService"
-# GetServiceStatus($testName)
-# StopOneService($testName)
-# StartOneService($testName)
+    ----FUNCITON TESTS----
+    $testName = "Fax"
+    GetServiceStatus($testName)
+    ServiceFunction -action "Start" -serviceName $testName
+    ServiceFunction -action "Stop" -serviceName $testName
 ###########################################>
 
-# Variables
+# Kona Services
 [array]$services = "Kona Backgroud Processor", "Kona JMS Listener", "RabbitMQ"
-[int]$counter = 0
 
-# Display what the script is doing and what services will be restarted
+# Display selected services and thier status
 Write-Host "This script will restart the following services: "
-
 foreach ($srv in $services) {
-    $counter += 1
-    Write-Host $counter " --- " $srv
-}
-
-$option = Read-Host "`n Do you want to continue with this script? `n Answer (Y/N): "
-ContinueScript($option)
-
-
-# Get Current Status fore each service
-foreach ($srv in $services) {
+    Write-Host $services.IndexOf($srv) " ---  " $srv
     GetServiceStatus($srv)
 }
 
+# Verify with user to continue
+$option = Read-Host "`n Continue to shutdown these services? `n Answer (Y/N): "
+ContinueScript($option)
+
 # Stop each service
 foreach ($srv in $services) {
-    ServiceFunction('Stop', $srv)
+    Write-Host $services.IndexOf($srv) " ---  " $srv
+    ServiceFunction `
+        -action "Stop" `
+        -serviceName $testName
 }
 
-Write-Host `n $services
-[array]::Reverse($services)
-Write-Host `n $services
+# Verify with user to continue
+$option = Read-Host "`n Continue to restart these services? `n Answer (Y/N): "
+ContinueScript($option)
 
-    -- Stop Service
-    -- Wait until service is stopped
-    -- Display status of service
-    -- Move on to next service
--- Once all services are stopped
-    -- Restart services one at a time
-    -- Display status of service
-    -- Wait for service status of "Running" before moving on to next service
-    -- Display message once complete
-#>
+# Start each service in reverse order
+[array]::Reverse($services)
+foreach ($srv in $services) {
+    Write-Host $services.IndexOf($srv) " ---  " $srv
+    ServiceFunction `
+        -action "Start" `
+        -serviceName $testName
+}
