@@ -29,7 +29,7 @@ function ServiceFunction () {
     if($action -eq 'Start') {
         if ((Get-Service -Name $serviceName).Status -ne 'Running') {
             Write-Host "Starting service ---> $serviceName"
-            Get-Service -Name $serviceName | Start-Service -ErrorAction SilentlyContinue
+            Get-Service -Name $serviceName | Start-Service -ErrorAction Continue
             (Get-Service -Name $serviceName).WaitForStatus('Running')
             GetServiceStatus($serviceName)
         }
@@ -70,11 +70,16 @@ function ContinueScript () {
 
 <###########################################
     ----FUNCITON TESTS----
-    $testName = "Fax"
+    $testName = "WebClient"
     GetServiceStatus($testName)
     ServiceFunction -action "Start" -serviceName $testName
     ServiceFunction -action "Stop" -serviceName $testName
 ###########################################>
+
+# Start Log File
+$DT = (Get-Date -UFormat "%Y.%m.%d-%H%M").ToString()
+$f_out = ("Kona_Restart_" + $Dt + ".log").ToString()
+Start-Transcript -Path ~\Desktop\$f_out
 
 # Kona Services
 [array]$services = "Kona Backgroud Processor", "Kona JMS Listener", "RabbitMQ"
@@ -110,3 +115,5 @@ foreach ($srv in $services) {
         -action "Start" `
         -serviceName $testName
 }
+
+Stop-Transcript
